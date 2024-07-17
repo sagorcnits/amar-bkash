@@ -1,15 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -18,8 +19,8 @@ const Register = () => {
     const email = data.email;
     const number = data.number;
     const role = data.role;
-    const password = data.password;
-    const userData = { name, email, number, role, password, status: "pending" };
+    const pin = data.password;
+    const userData = { name, email, number, role, pin, status: "pending" };
 
     console.log(userData);
 
@@ -34,6 +35,10 @@ const Register = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        reset();
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       })
       .catch((error) => {
         console.log(error.message);
@@ -76,7 +81,7 @@ const Register = () => {
             <div>
               <label className="block mb-2 text-sm">Number</label>
               <input
-                {...register("number", { required: true })}
+                {...register("number", { required: true, minLength: 11 })}
                 type="number"
                 name="number"
                 placeholder="number"
@@ -103,15 +108,17 @@ const Register = () => {
                 <label className="text-sm">Password</label>
               </div>
               <input
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: true,
+                  minLength: 5,
+                  maxLength: 5,
+                })}
                 type="password"
                 name="password"
                 placeholder="5-digit PIN"
                 className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800"
               />
-              {errors.password && (
-                <p className="text-red-500">Invalid Your PIN</p>
-              )}
+              {errors.password && <p className="text-red-500">5-digit PIN</p>}
             </div>
           </div>
           <div className="space-y-2">
