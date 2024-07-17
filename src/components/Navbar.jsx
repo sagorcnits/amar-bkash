@@ -2,7 +2,7 @@ const Navbar = () => {
   return (
     <div className="navbar border-b border-[#c5c3c3] px-6">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <h1 className="font-bold">Sagor Hossain</h1>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
