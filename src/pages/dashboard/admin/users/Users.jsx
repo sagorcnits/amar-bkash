@@ -36,7 +36,7 @@ const Users = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                          src="https://lh3.googleusercontent.com/a/ACg8ocJHNtFThSGq16tvsVl2iDzNlEK1q6dDeDVVwJrQhVNtn7AUgug=s288-c-no"
                           alt="user iamge"
                         />
                       </div>

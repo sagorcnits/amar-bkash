@@ -5,7 +5,7 @@ const Dashboard = () => {
 
   return (
     <section className="flex gap-2">
-      <div className="h-screen  bg-white w-[250px] fixed hidden lg:block">
+      <div className="h-screen  bg-white w-[250px] fixed hidden md:block">
         <h1 className="text-[20px]  p-3 text-center">AmarBkash</h1>
         {role === "admin" ? (
           <ul className="*:mt-2 border-b pb-6 border-dashed p-3">
@@ -148,7 +148,7 @@ const Dashboard = () => {
           </ul>
         )}
       </div>
-      <main className="w-full  lg:ml-[250px] bg-[#eaecec] h-screen">
+      <main className="w-full  md:ml-[250px] bg-[#eaecec] h-screen">
         <Navbar></Navbar>
         <div className="p-4">
           <Outlet></Outlet>

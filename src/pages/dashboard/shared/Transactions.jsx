@@ -28,7 +28,7 @@ const Transactions = () => {
             <tbody>
               {[1, 2, 3, 4, 5].map((item, id) => {
                 return (
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                  <tr key={id} className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
                     </td>

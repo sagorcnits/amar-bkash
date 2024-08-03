@@ -19,21 +19,24 @@ const Login = () => {
     const email = data.email;
     const pin = data.pin;
     const userData = { email, pin };
-    console.log(userData);
+    // console.log(userData);
     axiosPublic
       .post("/jwt", userData)
       .then((res) => {
+        console.log(res.data.message);
+
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.userData));
+          Swal.fire({
+            icon: "success",
+            title: "Success Your Login",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          reset();
         }
-        Swal.fire({
-          icon: "success",
-          title: "Success Your Login",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        reset();
+
         setTimeout(() => {
           const token = localStorage.getItem("token");
           if (token) {
