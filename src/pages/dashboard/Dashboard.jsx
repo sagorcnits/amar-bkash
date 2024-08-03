@@ -1,13 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 const Dashboard = () => {
-  const role = "user";
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   return (
     <section className="flex gap-2">
       <div className="h-screen  bg-white w-[250px] fixed hidden md:block">
         <h1 className="text-[20px]  p-3 text-center">AmarBkash</h1>
-        {role === "admin" ? (
+        {user?.role === "admin" ? (
           <ul className="*:mt-2 border-b pb-6 border-dashed p-3">
             <li>
               <NavLink
@@ -68,7 +69,7 @@ const Dashboard = () => {
                 <span>Overview</span>
               </NavLink>
             </li>
-            {role === "user" ? (
+            {user?.role === "user" ? (
               <>
                 <li>
                   <NavLink

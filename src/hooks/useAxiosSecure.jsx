@@ -19,7 +19,7 @@ const useAxiosSecure = () => {
 
   //response
 
-  axiosSecure.interceptors.response(
+  axiosSecure.interceptors.response.use(
     function (response) {
       return response;
     },

@@ -40,7 +40,7 @@ const Login = () => {
         setTimeout(() => {
           const token = localStorage.getItem("token");
           if (token) {
-            navigate("dashboard");
+            navigate("dashboard/overview");
           }
         }, 3000);
       })

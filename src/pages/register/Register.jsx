@@ -20,9 +20,9 @@ const Register = () => {
     const number = data.number;
     const role = data.role;
     const pin = data.password;
-    const userData = { name, email, number, role, pin, status: "pending" };
+    const userData = { name, email, number, role, pin, status: "pending" , balance:0};
 
-    console.log(userData);
+    // console.log(userData);
 
     axiosPublic
       .post("/user", userData)

@@ -1,16 +1,28 @@
 import { CiSearch } from "react-icons/ci";
+import useStatusUser from "../../../../hooks/useStatusUser";
+import useUserData from "../../../../hooks/useUserData";
 
 const Users = () => {
+  const [users, refetch, isPending] = useUserData();
+  // console.log(users);
+const statusHandle = useStatusUser()
+
   return (
     <div>
-        <div className="flex justify-end items-center mt-10">
-           <div className="flex bg-white  rounded-md overflow-hidden ">
-           <input type="text"  placeholder="search user" className="focus:outline-none py-2 px-4"/>
-           <button className="bg-pink-500 py-2 px-4 text-[18px]"><CiSearch></CiSearch></button>
-           </div>
+      <div className="flex justify-end items-center mt-10">
+        <div className="flex bg-white  rounded-md overflow-hidden ">
+          <input
+            type="text"
+            placeholder="search user"
+            className="focus:outline-none py-2 px-4"
+          />
+          <button className="bg-pink-500 py-2 px-4 text-[18px]">
+            <CiSearch></CiSearch>
+          </button>
         </div>
+      </div>
       <h1 className="text-[20px] font-semibold py-4">All Users</h1>
-      <div className="bg-white rounded-md w-full">
+      <div className="bg-white rounded-md w-full overflow-auto">
         <table className="w-full p-6 text-[17px] text-left whitespace-nowrap z-0">
           <thead>
             <tr className="bg-[#d1d0d0]">
@@ -24,14 +36,15 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4].map((user, id) => {
+            {users?.map((user, id) => {
+              const { _id,name, email, number, role, status } = user;
               return (
                 <tr
                   key={id}
                   className="border-b dark:bg-gray-50 dark:border-gray-300 *:px-3 *:py-2 *:h-20"
                 >
                   <td>{id + 1}</td>
-                  <td>sagor</td>
+                  <td>{name}</td>
                   <td>
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
@@ -42,9 +55,15 @@ const Users = () => {
                       </div>
                     </div>
                   </td>
-                  <td>sagor@gmail.com</td>
-                  <td className="font-semibold">user</td>
-                  <td>user</td>
+                  <td>{email}</td>
+                  <td className="font-semibold">{role}</td>
+                  <td
+                    className={`${
+                      status == "active" ? "text-green" : "text-red-500"
+                    }`}
+                  >
+                    {status}
+                  </td>
                   <td>
                     <div className="dropdown dropdown-left dropdown-end">
                       <div tabIndex={0} className="cursor-pointer btn">
@@ -57,16 +76,16 @@ const Users = () => {
                       </div>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52 *:bgHover"
+                        className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52 *:bgHover *:text-[18px] *:font-semibold"
                       >
-                        <li>
-                          <a>Admin</a>
+                        <li className="text-green">
+                          <a onClick={() => statusHandle("active", _id)}>active</a>
                         </li>
                         <li>
-                          <a>Volunteer</a>
+                          <a onClick={() => statusHandle("block", _id)}>block</a>
                         </li>
-                        <li>
-                          <a>btn</a>
+                        <li className="text-red-800">
+                          <a onClick={() => statusHandle("remove", _id)}>remove</a>
                         </li>
                       </ul>
                     </div>

@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const sideBarRef = useRef();
   const user = JSON.parse(localStorage.getItem("user"));
-  const role = "user";
+  // const role = "user";
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -32,7 +32,7 @@ const Navbar = () => {
             onClick={openSideBar}
             className="block md:hidden text-[20px] cursor-pointer"
           ></FaBars>
-          <h1 className="font-bold">Sagor Hossain</h1>
+          <h1 className="font-bold">{user.name}</h1>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
@@ -53,10 +53,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <a className="justify-between">Profile</a>
               </li>
               <li>
                 <a>Settings</a>
@@ -79,7 +76,7 @@ const Navbar = () => {
             className="text-[24px] cursor-pointer"
           ></MdOutlineClose>
         </div>
-        {role === "admin" ? (
+        {user.role === "admin" ? (
           <ul className="*:mt-2 border-b pb-6 border-dashed p-3">
             <li>
               <NavLink
@@ -144,7 +141,7 @@ const Navbar = () => {
                 <span>Overview</span>
               </NavLink>
             </li>
-            {role === "user" ? (
+            {user.role === "user" ? (
               <>
                 <li>
                   <NavLink
