@@ -25,7 +25,7 @@ const Register = () => {
     // console.log(userData);
 
     axiosPublic
-      .post("/user", userData)
+      .post("/users", userData)
       .then((res) => {
         const data = res.data;
         console.log(data);

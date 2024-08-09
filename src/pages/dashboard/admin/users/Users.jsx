@@ -1,11 +1,21 @@
 import { CiSearch } from "react-icons/ci";
-import useStatusUser from "../../../../hooks/useStatusUser";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useUserData from "../../../../hooks/useUserData";
 
 const Users = () => {
   const [users, refetch, isPending] = useUserData();
-  // console.log(users);
-const statusHandle = useStatusUser()
+  const axiosSecure = useAxiosSecure();
+  const statusHandle = (status, _id) => {
+    axiosSecure
+      .put(`/users?status=${status}&id=${_id}`)
+      .then((res) => {
+        console.log(res.data);
+        refetch();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div>
@@ -37,7 +47,7 @@ const statusHandle = useStatusUser()
           </thead>
           <tbody>
             {users?.map((user, id) => {
-              const { _id,name, email, number, role, status } = user;
+              const { _id, name, email, number, role, status } = user;
               return (
                 <tr
                   key={id}
@@ -79,13 +89,19 @@ const statusHandle = useStatusUser()
                         className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52 *:bgHover *:text-[18px] *:font-semibold"
                       >
                         <li className="text-green">
-                          <a onClick={() => statusHandle("active", _id)}>active</a>
+                          <a onClick={() => statusHandle("active", _id)}>
+                            active
+                          </a>
                         </li>
                         <li>
-                          <a onClick={() => statusHandle("block", _id)}>block</a>
+                          <a onClick={() => statusHandle("block", _id)}>
+                            block
+                          </a>
                         </li>
                         <li className="text-red-800">
-                          <a onClick={() => statusHandle("remove", _id)}>remove</a>
+                          <a onClick={() => statusHandle("remove", _id)}>
+                            remove
+                          </a>
                         </li>
                       </ul>
                     </div>

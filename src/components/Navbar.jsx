@@ -22,7 +22,7 @@ const Navbar = () => {
     sideBarRef.current.style.left = "-250px";
   };
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <>
@@ -32,7 +32,7 @@ const Navbar = () => {
             onClick={openSideBar}
             className="block md:hidden text-[20px] cursor-pointer"
           ></FaBars>
-          <h1 className="font-bold">{user.name}</h1>
+          <h1 className="font-bold">{user?.name}</h1>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
@@ -76,7 +76,7 @@ const Navbar = () => {
             className="text-[24px] cursor-pointer"
           ></MdOutlineClose>
         </div>
-        {user.role === "admin" ? (
+        {user?.role === "admin" ? (
           <ul className="*:mt-2 border-b pb-6 border-dashed p-3">
             <li>
               <NavLink
@@ -141,7 +141,7 @@ const Navbar = () => {
                 <span>Overview</span>
               </NavLink>
             </li>
-            {user.role === "user" ? (
+            {user?.role === "user" ? (
               <>
                 <li>
                   <NavLink
