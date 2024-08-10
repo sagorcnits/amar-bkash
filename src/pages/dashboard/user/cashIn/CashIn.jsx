@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const CashIn = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -9,7 +12,25 @@ const CashIn = () => {
   } = useForm();
 
   const submit = (data) => {
-    console.log(data);
+    const agentNumber = data.number;
+    const money = data.money;
+    const pin = data.pin;
+
+    const transactionData = {
+      agentNumber,
+      money,
+      pin,
+      userNumber: user.number,
+    };
+
+    axiosSecure
+      .post("/transactions", transactionData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (

@@ -125,7 +125,7 @@ const Dashboard = () => {
                         ? "dashbord-active sideBar-nav"
                         : "sideBar-nav"
                     }
-                    to="/dashboard/sendMoney"
+                    to="/dashboard/transactions"
                   >
                     <span>Transactions</span>
                   </NavLink>
@@ -141,7 +141,7 @@ const Dashboard = () => {
                     ? "dashbord-active sideBar-nav"
                     : "sideBar-nav"
                 }
-                to="/dashboard/transactions"
+                to="/dashboard/transactions-history"
               >
                 <span>Transactions History</span>
               </NavLink>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import Users from "../pages/dashboard/admin/users/Users";
+import TransactionsAgent from "../pages/dashboard/agent/transactions/TransactionsAgent";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Overview from "../pages/dashboard/overview/Overview";
 import Transactions from "../pages/dashboard/shared/Transactions";
@@ -56,8 +57,13 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/dashboard/transactions",
+        path: "/dashboard/transactions-history",
         element: <Transactions></Transactions>,
+      },
+
+      {
+        path: "/dashboard/transactions",
+        element: <TransactionsAgent></TransactionsAgent>,
       },
 
       {
