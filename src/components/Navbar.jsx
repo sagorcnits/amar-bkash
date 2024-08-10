@@ -67,7 +67,7 @@ const Navbar = () => {
       </div>
       <div
         ref={sideBarRef}
-        className="h-screen  bg-white w-[250px] fixed -left-[250px] top-0 duration-500"
+        className="h-screen  bg-white w-[250px] fixed -left-[250px] top-0 duration-500 z-50"
       >
         <div className="flex justify-between items-center px-4">
           <h1 className="text-[20px]  p-3 text-center">AmarBkash</h1>
@@ -201,7 +201,7 @@ const Navbar = () => {
                         ? "dashbord-active sideBar-nav"
                         : "sideBar-nav"
                     }
-                    to="/dashboard/sendMoney"
+                    to="/dashboard/transactions"
                   >
                     <span>Transactions</span>
                   </NavLink>
@@ -218,7 +218,7 @@ const Navbar = () => {
                     ? "dashbord-active sideBar-nav"
                     : "sideBar-nav"
                 }
-                to="/dashboard/transactions"
+                to="/dashboard/transactions-history"
               >
                 <span>Transactions History</span>
               </NavLink>

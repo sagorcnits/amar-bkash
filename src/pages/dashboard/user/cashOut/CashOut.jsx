@@ -1,17 +1,66 @@
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 
 const CashOut = () => {
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const axiosSecure = useAxiosSecure();
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
       } = useForm();
     
       const submit = (data) => {
-        console.log(data);
+        const agentNumber = data.number;
+        const money = data.money;
+        const pin = data.pin;
+    
+        const transactionData = {
+          agentNumber,
+          money,
+          pin,
+          name:user.name,
+          email:user.email,
+          userNumber: user.number,
+          role: "cashOut",
+          status: "pending",
+        };
+        axiosSecure
+        .post("/transactions", transactionData)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "Success Your Cash Out",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            reset();
+            
+          } else if (res.data.message) {
+            Swal.fire({
+              icon: "warning",
+              title: "invalid your information",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          Swal.fire({
+            icon: "warning",
+            title: "invalid your information",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+
       };
 
 
