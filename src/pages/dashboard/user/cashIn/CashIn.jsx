@@ -14,13 +14,13 @@ const CashIn = () => {
   } = useForm();
 
   const submit = (data) => {
-    const agentNumber = data.number;
+    const reciveNumber = data.number;
     const money = data.money;
     const pin = data.pin;
 
     const transactionData = {
 
-      agentNumber,
+      reciveNumber,
       money,
       pin,
       name:user.name,
@@ -42,7 +42,7 @@ const CashIn = () => {
             timer: 1500,
           });
           reset();
-          
+
         } else if (res.data.message) {
           Swal.fire({
             icon: "warning",

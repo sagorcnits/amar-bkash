@@ -15,12 +15,25 @@ const SendMoney = () => {
   } = useForm();
 
   const submit = (data) => {
-    const number = data.number;
+    const reciveNumber = data.number;
     const money = data.money;
     const pin = data.pin;
 
+    const transactionData = {
+      reciveNumber,
+      money,
+      pin,
+      name: user.name,
+      email: user.email,
+      userNumber: user.number,
+      role: "sendMoney",
+      status: "done",
+    };
+
     axiosSecure
-      .put(`/users?number=${number}&money=${money}&pin=${pin}&id=${user._id}`)
+      .put(
+        `/users?number=${reciveNumber}&money=${money}&pin=${pin}&id=${user._id}`
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data.message) {
@@ -32,13 +45,36 @@ const SendMoney = () => {
           });
           return;
         }
-        Swal.fire({
-          icon: "success",
-          title: "Success Your send Money",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        reset();
+        axiosSecure
+          .post("/transactions", transactionData)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              Swal.fire({
+                icon: "success",
+                title: "Success Your Cash In",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              reset();
+            } else if (res.data.message) {
+              Swal.fire({
+                icon: "warning",
+                title: "invalid your information",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error.message);
+            Swal.fire({
+              icon: "warning",
+              title: "invalid your information",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
       })
       .catch((error) => {
         console.log(error.message);

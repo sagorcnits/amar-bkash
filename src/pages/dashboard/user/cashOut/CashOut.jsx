@@ -15,12 +15,12 @@ const CashOut = () => {
       } = useForm();
     
       const submit = (data) => {
-        const agentNumber = data.number;
+        const reciveNumber = data.number;
         const money = data.money;
         const pin = data.pin;
     
         const transactionData = {
-          agentNumber,
+          reciveNumber,
           money,
           pin,
           name:user.name,
