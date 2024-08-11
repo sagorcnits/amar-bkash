@@ -47,7 +47,7 @@ const Dashboard = () => {
                     ? "dashbord-active sideBar-nav"
                     : "sideBar-nav"
                 }
-                to="/dashboard/transactions"
+                to="/dashboard/transactions-history"
               >
                 <span>Transactions History</span>
               </NavLink>
@@ -151,7 +151,7 @@ const Dashboard = () => {
       </div>
       <main className="w-full  md:ml-[250px] bg-[#eaecec] h-screen">
         <Navbar></Navbar>
-        <div className="p-4">
+        <div className="p-4 bg-[#eaecec]">
           <Outlet></Outlet>
         </div>
       </main>

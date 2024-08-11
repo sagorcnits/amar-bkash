@@ -1,62 +1,72 @@
+import useTransactions from "../../../hooks/useTransactions";
+
 const Transactions = () => {
+  const [transactions, isPending, refetch] = useTransactions();
+
+  console.log(transactions);
+
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800">
         <h2 className="mb-4 text-2xl font-semibold leading-tight">
           Recent Transactions
         </h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-xs">
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-              <col className="w-24" />
-            </colgroup>
-            <thead className="dark:bg-gray-300">
-              <tr className="text-left">
+        <div className="bg-white rounded-md w-full overflow-auto">
+        {transactions.length > 0 ? (
+          <table className="w-full p-6 text-[17px] text-left whitespace-nowrap z-0">
+            <thead>
+              <tr className="bg-[#d1d0d0]">
+                <th className="p-3">No:</th>
                 <th className="p-3">Name</th>
-                <th className="p-3">Client</th>
-                <th className="p-3">Issued</th>
-                <th className="p-3">Due</th>
-                <th className="p-3 text-right">Amount</th>
+                <th className="p-3">Photo</th>
+                <th className="p-3">Email</th>
+                <th className="p-3">Number</th>
+                <th className="p-3">Money</th>
+                <th className="p-3">Role</th>
                 <th className="p-3">Status</th>
+               
               </tr>
             </thead>
+
             <tbody>
-              {[1, 2, 3, 4, 5].map((item, id) => {
+              {transactions?.map((user, id) => {
+                const { _id, money, name, email, userNumber, role, status } =
+                  user;
                 return (
-                  <tr key={id} className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
+                  <tr
+                    key={id}
+                    className="border-b dark:bg-gray-50 dark:border-gray-300 *:px-3 *:py-2 *:h-20"
+                  >
+                    <td>{id + 1}</td>
+                    <td>{name}</td>
+                    <td>
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src="https://lh3.googleusercontent.com/a/ACg8ocJHNtFThSGq16tvsVl2iDzNlEK1q6dDeDVVwJrQhVNtn7AUgug=s288-c-no"
+                            alt="user iamge"
+                          />
+                        </div>
+                      </div>
                     </td>
-                    <td className="p-3">
-                      <p>Microsoft Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$15,792</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
-                        <span>Complate</span>
-                      </span>
+                    <td>{email}</td>
+                    <td>{userNumber}</td>
+                    <td>{money}</td>
+                    <td className="font-semibold">{role}</td>
+                    <td
+                      className={`${
+                        status == "done" ? "text-green" : "text-red-500"
+                      }`}
+                    >
+                      {status}
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-        </div>
+        ) : <h1 className="text-center text-[50px]">No Data</h1>}
+      </div>
       </div>
     </div>
   );

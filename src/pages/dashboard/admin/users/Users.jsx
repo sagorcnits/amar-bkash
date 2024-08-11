@@ -1,10 +1,21 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { CiSearch } from "react-icons/ci";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useUserData from "../../../../hooks/useUserData";
 
 const Users = () => {
+  const [searchResult, setSearchResult] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [users, refetch, isPending] = useUserData();
   const axiosSecure = useAxiosSecure();
+
   const statusHandle = (status, _id) => {
     axiosSecure
       .put(`/users?status=${status}&id=${_id}`)
@@ -17,19 +28,40 @@ const Users = () => {
       });
   };
 
+  const submit = (data) => {
+    const searchText = data.search;
+    axiosSecure
+      .get(`/users?search=${searchText}`)
+      .then((res) => {
+        setSearchResult(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  console.log(searchResult);
+
   return (
     <div>
       <div className="flex justify-end items-center mt-10">
-        <div className="flex bg-white  rounded-md overflow-hidden ">
-          <input
-            type="text"
-            placeholder="search user"
-            className="focus:outline-none py-2 px-4"
-          />
-          <button className="bg-pink-500 py-2 px-4 text-[18px]">
-            <CiSearch></CiSearch>
-          </button>
-        </div>
+        <form onSubmit={handleSubmit(submit)}>
+          <div className="flex bg-white  rounded-md overflow-hidden">
+            <input
+              {...register("search", { required: true })}
+              type="text"
+              placeholder="search user"
+              className="focus:outline-none py-2 px-4"
+              name="search"
+            />
+            <button className="bg-pink-500 py-2 px-4 text-[18px]">
+              <CiSearch></CiSearch>
+            </button>
+          </div>
+          {errors.search && (
+            <p className="text-red-500">Please Provide Value</p>
+          )}
+        </form>
       </div>
       <h1 className="text-[20px] font-semibold py-4">All Users</h1>
       <div className="bg-white rounded-md w-full overflow-auto">
